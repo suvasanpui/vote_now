@@ -9,7 +9,7 @@ function ElectorsList() {
   //fetch all the electors record in a home page 
   const fetchRecord = async () => {
     try {
-      const url = "https://votenow-api.vercel.app/electors";
+      const url = "https://vote-now-api3902.vercel.app/electors";
       //this is function to gat a token from localstorage
       const headers = {
         Authorization: `Bearer ${localStorage.getItem("loggedToken")}`,
@@ -31,7 +31,7 @@ function ElectorsList() {
   const handleVote=async (e)=>{
     const {value}=e.target;
     try{
-      const url=`https://votenow-api.vercel.app/electors/votes/${value}`;
+      const url=`https://vote-now-api3902.vercel.app/electors/votes/${value}`;
       const headers = {
         Authorization: `Bearer ${localStorage.getItem("loggedToken")}`,
         "Content-Type": "application/json",

@@ -22,7 +22,7 @@ function Login() {
 
     try {
       //backend http url where user data store that are create in a node
-      const url = "https://votenow-api.vercel.app/user/login";
+      const url = "https://vote-now-api3902.vercel.app/user/login";
       const responseRes = await fetch(url, {
         method: "POST",
         headers: {

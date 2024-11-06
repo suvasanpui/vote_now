@@ -35,7 +35,7 @@ function Signup() {
 
     try {
       //backend http url where user data store that are create in a node
-      const url = "https://votenow-api.vercel.app/user/signup";
+      const url = "https://vote-now-api3902.vercel.app/user/signup";
       const response = await fetch(url, {
         method: "POST",
         headers: {
