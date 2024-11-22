@@ -10,6 +10,8 @@ import { ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import ForgotPassword from "./pages/ForgotPassword";
 import ChangePassword from "./components/ChangePassword";
+import AdminHome from "./pages/AdminHome";
+import Dummy from "./components/UpdateModal";
 
 function App() {
   const [isAuthenticate, setIsauthenticate] = useState(false);
@@ -29,6 +31,8 @@ function App() {
         <Route path="/profile/forgot-password" element={<ForgotPassword/>}/>
         <Route path="/profile/change-password" element={<ChangePassword/>}/>
         <Route path="/home" element={<PrivateRoute element={<Home />} />} />
+
+        <Route path="/admin-profile" element={<AdminHome/>} />
       </Routes>
     </div>
   );

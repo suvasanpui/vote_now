@@ -4,9 +4,10 @@ import { handleError, handleSuccess } from "../utils";
 import { Link, useNavigate } from "react-router-dom";
 
 function ForgotPassword() {
-  //by defult otp input field is disable , its enable when i click a otp button
-  const [isotpDisable, setotpDisable] = useState(true);
-  const [isuidaiDisable, setUidaiDisable] = useState(false);
+  
+  const [isotpDisable, setotpDisable] = useState(true);//by defult otp input field is disable , its enable when i click a otp button
+  const [isuidaiDisable, setUidaiDisable] = useState(false);//by default uidai fied is enable after go in otp input field then uidai input field is disable
+  //this state take otp from otp input field
   const [digit, setDigit] = useState({
     code: "",
   });
@@ -21,9 +22,9 @@ function ForgotPassword() {
   //responsible for send  A mail for forgot a password
   const sendOtp = async (e) => {
     e.preventDefault(); //without reload browser
-    setotpDisable(false); //bydefault otp input field is disable when i press a otp button then its enable
-    setUidaiDisable(true);
-    const { uidaiNo } = otp;
+    setotpDisable(false);  //bydefault otp input field is disable when now after pressing a otp button its enable
+    setUidaiDisable(true); //still now the uidai input field is enable after pressing a otp button its disable
+    const { uidaiNo } = otp; //uidai no fetch from otp state
     if (!uidaiNo) {
       return handleError("All field are require");
     }
@@ -31,6 +32,9 @@ function ForgotPassword() {
     try {
       //backend http url where user data store that are create in a node
       const url = "https://vote-now-api3902.vercel.app/user/profile/sendmail";
+      //const url = "http://localhost:8000/user/profile/sendmail"; //this is  a url for send a mail
+
+      //this method store the 4 digit otp in otp table in db
       const responseRes = await fetch(url, {
         method: "POST",
         headers: {

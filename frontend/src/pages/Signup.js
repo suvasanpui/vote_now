@@ -35,7 +35,10 @@ function Signup() {
 
     try {
       //backend http url where user data store that are create in a node
+
       const url = "https://vote-now-api3902.vercel.app/user/signup";
+      //const url = "http://localhost:8000/user/signup";
+
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -73,144 +76,157 @@ function Signup() {
   return (
     <div>
       <div className="bg-gray-50 font-[sans-serif]">
-        <div className="min-h-screen flex flex-col items-center justify-center py-6 px-3">
-          <div className="max-w-md w-full">
-            <a href="#">
-              <img src="\logo.png" alt="logo" class="w-40 mb-8 mx-auto block" />
-            </a>
+        <div
+          classname="min-h-screen flex items-center justify-center bg-fixed bg-cover bg-center"
+          style={{
+            backgroundImage: "url('background1.jpg')",
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+          }}
+        >
+          <div className="min-h-screen flex flex-col items-center justify-center py-6 px-3">
+            <div className="max-w-md w-full">
+              <a href="#">
+                <img
+                  src="\logo.png"
+                  alt="logo"
+                  class="w-40 mb-8 mx-auto block"
+                />
+              </a>
 
-            <div className="p-8 rounded-2xl bg-white shadow">
-              <h2 className="text-gray-700 text-center text-3xl font-bold pb-6">
-                Registration
-              </h2>
-              <form onSubmit={handleSignup}>
-                <div className="grid sm:grid-cols-2 gap-8">
-                  <div>
-                    <label className="text-gray-800 text-sm mb-2 block">
-                      Name
-                    </label>
-                    <input
-                      onChange={handleChange}
-                      name="name"
-                      type="text"
-                      className="text-gray-800 bg-gray-100 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
-                      placeholder="Enter Name"
-                      value={signupinfo.name}
-                    />
-                  </div>
-                  <div>
-                    <label className="text-gray-800 text-sm mb-2 block">
-                      Email Id
-                    </label>
-                    <input
-                      onChange={handleChange}
-                      name="email"
-                      type="email"
-                      className="text-gray-800 bg-white border bg-gray-100 border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
-                      placeholder="Enter email"
-                      value={signupinfo.email}
-                    />
-                  </div>
-                  <div>
-                    <label className="text-gray-800 text-sm mb-2 block">
-                      Contact No.
-                    </label>
-                    <input
-                      onChange={handleChange}
-                      name="contact"
-                      type="text"
-                      className="text-gray-800 bg-white border bg-gray-100 border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
-                      placeholder="Enter Contact No."
-                      value={signupinfo.contact}
-                    />
+              <div className="p-8 rounded-2xl bg-white shadow">
+                <h2 className="text-gray-700 text-center text-3xl font-bold pb-6">
+                  Registration
+                </h2>
+                <form onSubmit={handleSignup}>
+                  <div className="grid sm:grid-cols-2 gap-8">
+                    <div>
+                      <label className="text-gray-800 text-sm mb-2 block">
+                        Name
+                      </label>
+                      <input
+                        onChange={handleChange}
+                        name="name"
+                        type="text"
+                        className="text-gray-800 bg-gray-100 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
+                        placeholder="Enter Name"
+                        value={signupinfo.name}
+                      />
+                    </div>
+                    <div>
+                      <label className="text-gray-800 text-sm mb-2 block">
+                        Email Id
+                      </label>
+                      <input
+                        onChange={handleChange}
+                        name="email"
+                        type="email"
+                        className="text-gray-800 bg-white border bg-gray-100 border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
+                        placeholder="Enter email"
+                        value={signupinfo.email}
+                      />
+                    </div>
+                    <div>
+                      <label className="text-gray-800 text-sm mb-2 block">
+                        Contact No.
+                      </label>
+                      <input
+                        onChange={handleChange}
+                        name="contact"
+                        type="text"
+                        className="text-gray-800 bg-white border bg-gray-100 border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
+                        placeholder="Enter Contact No."
+                        value={signupinfo.contact}
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-gray-800 text-sm mb-2 block">
+                        Addhar No.
+                      </label>
+                      <input
+                        onChange={handleChange}
+                        name="uidaiNo"
+                        type="number"
+                        className="text-gray-800 bg-white border bg-gray-100 border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
+                        placeholder="Enter Addhr No."
+                        value={signupinfo.uidaiNo}
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-gray-800 text-sm mb-2 block">
+                        Address
+                      </label>
+                      <input
+                        onChange={handleChange}
+                        name="address"
+                        type="text"
+                        className="text-gray-800 bg-white border bg-gray-100 border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
+                        placeholder="Enter Address"
+                        value={signupinfo.address}
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-gray-800 text-sm mb-2 block">
+                        Age
+                      </label>
+                      <input
+                        onChange={handleChange}
+                        name="age"
+                        type="number"
+                        className="text-gray-800 bg-white border bg-gray-100 border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
+                        placeholder="Enter Age"
+                        value={signupinfo.age}
+                      />
+                    </div>
+                    <div>
+                      <label className="text-gray-800 text-sm mb-2 block">
+                        Password
+                      </label>
+                      <input
+                        onChange={handleChange}
+                        name="password"
+                        type="password"
+                        className="text-gray-800 bg-white border bg-gray-100 border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
+                        placeholder="Enter password"
+                        value={signupinfo.password}
+                      />
+                    </div>
+                    <div>
+                      <label className="text-gray-800 text-sm mb-2 block">
+                        Confirm Password
+                      </label>
+                      <input
+                        name="cpassword"
+                        type="password"
+                        className="text-gray-800 bg-white border bg-gray-100 border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
+                        placeholder="Enter Confirm password"
+                      />
+                    </div>
                   </div>
 
-                  <div>
-                    <label className="text-gray-800 text-sm mb-2 block">
-                      Addhar No.
-                    </label>
-                    <input
-                      onChange={handleChange}
-                      name="uidaiNo"
-                      type="number"
-                      className="text-gray-800 bg-white border bg-gray-100 border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
-                      placeholder="Enter Addhr No."
-                      value={signupinfo.uidaiNo}
-                    />
+                  <div className="!mt-12">
+                    <button
+                      type="submit"
+                      className="w-full py-3 px-4 text-sm tracking-wider font-semibold rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
+                    >
+                      Create an account
+                    </button>
                   </div>
-
-                  <div>
-                    <label className="text-gray-800 text-sm mb-2 block">
-                      Address
-                    </label>
-                    <input
-                      onChange={handleChange}
-                      name="address"
-                      type="text"
-                      className="text-gray-800 bg-white border bg-gray-100 border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
-                      placeholder="Enter Address"
-                      value={signupinfo.address}
-                    />
-                  </div>
-
-                  <div>
-                    <label className="text-gray-800 text-sm mb-2 block">
-                      Age
-                    </label>
-                    <input
-                      onChange={handleChange}
-                      name="age"
-                      type="number"
-                      className="text-gray-800 bg-white border bg-gray-100 border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
-                      placeholder="Enter Age"
-                      value={signupinfo.age}
-                    />
-                  </div>
-                  <div>
-                    <label className="text-gray-800 text-sm mb-2 block">
-                      Password
-                    </label>
-                    <input
-                      onChange={handleChange}
-                      name="password"
-                      type="password"
-                      className="text-gray-800 bg-white border bg-gray-100 border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
-                      placeholder="Enter password"
-                      value={signupinfo.password}
-                    />
-                  </div>
-                  <div>
-                    <label className="text-gray-800 text-sm mb-2 block">
-                      Confirm Password
-                    </label>
-                    <input
-                      name="cpassword"
-                      type="password"
-                      className="text-gray-800 bg-white border bg-gray-100 border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
-                      placeholder="Enter Confirm password"
-                    />
-                  </div>
-                </div>
-
-                <div className="!mt-12">
-                  <button
-                    type="submit"
-                    className="w-full py-3 px-4 text-sm tracking-wider font-semibold rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
-                  >
-                    Create an account
-                  </button>
-                </div>
-                <p className="text-gray-800 text-sm mt-6 text-center">
-                  Already have an account?{" "}
-                  <Link
-                    to="/login"
-                    className="text-blue-600 font-semibold hover:underline ml-1"
-                  >
-                    Login here
-                  </Link>
-                </p>
-              </form>
-              <ToastContainer />
+                  <p className="text-gray-800 text-sm mt-6 text-center">
+                    Already have an account?{" "}
+                    <Link
+                      to="/login"
+                      className="text-blue-600 font-semibold hover:underline ml-1"
+                    >
+                      Login here
+                    </Link>
+                  </p>
+                </form>
+                <ToastContainer />
+              </div>
             </div>
           </div>
         </div>

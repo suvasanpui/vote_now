@@ -12,6 +12,7 @@ function Home() {
   const fetchRecord = async () => {
     try {
       const url = "https://vote-now-api3902.vercel.app/user/profile";
+      //const url = "http://localhost:8000/user/profile";
       //this is function to gat a token from localstorage
       const headers = {
         Authorization: `Bearer ${localStorage.getItem("loggedToken")}`,
