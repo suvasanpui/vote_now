@@ -3,11 +3,14 @@ import { handleError, handleSuccess } from "../utils";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import UpdateModal from "./UpdateModal";
+import DeleteModal from "./DeleteModal";
 
 function ElectorsList() {
   const [showList, setShowList] = useState("");
   const [showModal, setShowModal] = useState(false); //for show popup when a click a edit button, by default popup is disable
-  const [id, setId] = useState(""); //to get a specific id
+  const [deleteElector, setDeleteElector] = useState(false); //for delete state,by default false
+  const [id, setId] = useState(""); //to get a specific id and pass updateModal component for update value in electors
+  const [deleteId, setDeleteId] = useState(""); //to get a specific id and pass deleteModal component for delete electors
 
   //fetch all the electors record in a home page
   const fetchRecord = async () => {
@@ -31,36 +34,18 @@ function ElectorsList() {
     }
   };
 
-  //when i click a edit button then its get elector id and the update record in a electos collection
-  /*const handleEdit = async (e) => {
+  //to set elector id in a id state for edit electors
+  const handleId = async (e) => {
     const { value } = e.target;
-    try {
-      //const url=`https://vote-now-api3902.vercel.app/electors/votes/${value}`;
-      const url = `http://localhost:8000/electors/update/${value}`;
-      const headers = {
-        Authorization: `Bearer ${localStorage.getItem("loggedToken")}`,
-        "Content-Type": "application/json",
-      };
-      const responseRes = await fetch(url, {
-        method: "PUT",
-        headers: headers,
-      });
-      if (responseRes.ok) {
-        setPopup(true);
-      } else {
-        handleError("Internal server Error");
-      }
-    } catch (err) {
-      handleError("Internal server error");
-    }
-  };*/
-
-
-  //to set elector in a id state
-  const handleId = async(e) => {
-    const {value}=e.target
     console.log(value);
     setId(value);
+  };
+
+  //to set elector id in a deleteID state for delete electors
+  const handleDeleteId = async (e) => {
+    const { value } = e.target;
+    console.log(value);
+    setDeleteId(value);
   };
 
   useEffect(() => {
@@ -70,24 +55,33 @@ function ElectorsList() {
   return (
     <div>
       <div>
-        {/*show popup*/}
+        {/*show update popup for update electors*/}
         {showModal && (
-          <UpdateModal closeModal={() => setShowModal(false)} sendId={id} /> //pass id as a props  to updateModal component and popup is enable
+          <UpdateModal closeModal={() => setShowModal(false)} sendId={id} /> //pass id as a props  to updateModal component and update popup is enable
+        )}
+      </div>
+      {/*show delete popup for delete electors */}
+      <div>
+        {deleteElector && (
+          <DeleteModal
+            closeModal={() => setDeleteElector(false)}
+            sendId={deleteId}
+          /> //pass id as a props  to deleteModal component and delete popup is enable
         )}
       </div>
       <div className="px-3 py-3 font-serif font-medium text-gray-700 col-span-6 bg-slate-600">
-        <div className="">
-          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <div className="overflow-x-auto">
+          <table className="min-w-full border border-gray-300 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
               <tr>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-6 py-3 border-b border-gray-300">
                   Name
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-6 py-3 border-b border-gray-300">
                   Party
                 </th>
-                <th scope="col" className="px-6 py-3">
-                  Participate
+                <th scope="col" className="px-12 py-3 border-b border-gray-300">
+                  Action
                 </th>
               </tr>
             </thead>
@@ -102,19 +96,35 @@ function ElectorsList() {
                       {data.name}
                     </th>
                     <td className="px-6 py-4">{data.party}</td>
-                    <td className="m-6 p-4">
+
+                    <td className="px-6 py-4 flex space-x-4">
+                      
+                      {/* Using flexbox here */}
                       <button
                         name={data.party}
                         type="button"
-                        className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-small rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-7"
+                        className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-small rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                         value={data.id}
-                        title="Give Vote"
+                        title="Edit info.."
                         onClick={(e) => {
                           setShowModal(true);
                           handleId(e);
                         }}
                       >
                         Edit
+                      </button>
+                      <button
+                        name={data.party}
+                        type="button"
+                        className="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-blue-300 font-small rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        value={data.id}
+                        title="Delete Account"
+                        onClick={(e) => {
+                          setDeleteElector(true);
+                          handleDeleteId(e);
+                        }}
+                      >
+                        Delete
                       </button>
                     </td>
                   </tr>
@@ -129,4 +139,5 @@ function ElectorsList() {
 }
 
 export default ElectorsList;
-/* next day i was complete to pass a elector id to a model component , modal created successfully */
+/* next day i will complete to pass a elector id to a Deletemodel component , fro delete electors  */
+//'/electors/delete/:deleteID' (DELETE) - it is used for delete elector record of by admin (valid admin token is needed)

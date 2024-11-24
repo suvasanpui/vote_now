@@ -27,7 +27,7 @@ function ChangePassword() {
     try {
       //backend http url where user data store that are create in a node
 
-      const url = "https://vote-now-api3902.vercel.app/user/profile/changepassword";
+      const url = "https://vote-now-api3902.vercel.app/user/profile/changepassword"; //password change in this url
       //const url = "http://localhost:8000/user/profile/changepassword"; //password change in this url
       const responseRes = await fetch(url, {
         method: "POST",

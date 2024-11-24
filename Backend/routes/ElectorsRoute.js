@@ -55,6 +55,25 @@ route.get('/',jwtmiddleware,async(req,res)=>{
   }
 })
 
+//to see perticular electors by admin 
+route.get('/profile/:electorsID',jwtmiddleware,async(req,res)=>{
+  try{
+    if (!(await isAdmin(req.user.id))) {
+      res.status(403).json({ error: "Admin not Found" });
+    }
+    const electorsID=req.params.electorsID;
+    const elector=await Electors.findById(electorsID);
+    console.log("data fetch successfully");
+    return res.status(200).json(elector)
+
+  }catch(err){
+    console.log(err);
+    res.status(500).json({erron:"Internal server error"});
+  }
+})   
+
+  
+
 //this function are make a update electors
 route.put("/update/:updateID", jwtmiddleware, async (req, res) => {
   try {

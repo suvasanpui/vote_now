@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { handleError, handleSuccess } from "../utils";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 //responsible for show a modala and update the electors details
-function UpdateModal({ closeModal, sendId}) {
-
+function UpdateModal({ closeModal, sendId }) {
   //submit update details
   const [editInfo, seteditInfo] = useState({
     name: "",
@@ -17,12 +16,45 @@ function UpdateModal({ closeModal, sendId}) {
     password: "",
   });
 
+  //automatic fetch the electors data when i click edit button and place them into 'editInfo' state
+  useEffect(() => {
+    // Function to fetch update data
+    const fetchProfileData = async () => {
+      try {
+        const url=`https://vote-now-api3902.vercel.app/electors/profile/${sendId}`
+        //const url = `http://localhost:8000/electors/profile/${sendId}`;
+        const headers = {
+          Authorization: `Bearer ${localStorage.getItem("loggedToken")}`,
+          "Content-Type": "application/json",
+        };
+        const responseRes = await fetch(url, {
+          method: "GET",
+          headers: headers,
+        });
+        const profileData = await responseRes.json();
+        console.log(profileData);
+        seteditInfo({
+          name: profileData.name || "",
+          age: profileData.age || "",
+          email: profileData.email || "",
+          contact: profileData.contact || "",
+          address: profileData.address || "",
+          uidaiNo: profileData.uidaiNo || "",
+          password: profileData.password || "",
+        });
+      } catch (error) {
+        console.error("Error fetching profile data:", error);
+      }
+    };
+
+    fetchProfileData();
+  }, [sendId]); // Dependency array to re-run if `value` changes
+
   const navigate = useNavigate();
 
   //responsible for from input handle and store in a db in nodejs
   const handleUpdate = async (e) => {
     e.preventDefault(); //without reload browser
-    
 
     try {
       //backend http url where user data store that are create in a node
@@ -41,11 +73,11 @@ function UpdateModal({ closeModal, sendId}) {
         body: JSON.stringify(editInfo),
       });
       const result = await response.json();
-      const {error}=result;
+      const { error } = result;
       console.log(result);
-      if(error){
+      if (error) {
         handleError(error);
-      }else{
+      } else {
         handleSuccess("Update successfully");
         closeModal(true);
       }
@@ -67,25 +99,18 @@ function UpdateModal({ closeModal, sendId}) {
     <>
       {/* modal-wrapper and modal-container is a css class */}
 
-      <div className="min-h-screen flex flex-col items-center justify-center py-6 px-3 modal-wrapper">
-        <div className="max-w-md w-full modal-container">
+      <div className="min-h-screen flex-col items-center justify-center py-6 px-3 flex">
+        <div className="max-w-md w-full modal-container mt-0">
           <div className="p-8 rounded-2xl bg-white shadow">
-          <div className="text-right text-gray-500">
-            <button className="font-bold" onClick={closeModal}>X</button>
-          </div>
+            <div className="text-right text-gray-500">
+              <button className="font-bold" onClick={closeModal}>
+                X
+              </button>
+            </div>
             <h2 className="text-gray-700 text-center text-3xl font-bold pb-6">
               Update Candidate
             </h2>
             <form onSubmit={handleUpdate}>
-
-
-
-            <p className=" text-red-700">The site is under maintanance...</p>
-
-
-
-
-
               <div className="grid sm:grid-cols-2 gap-8">
                 <div>
                   <label className="text-gray-800 text-sm mb-2 block">
@@ -160,6 +185,7 @@ function UpdateModal({ closeModal, sendId}) {
                     onChange={handleChange}
                     name="uidaiNo"
                     type="number"
+                    readOnly
                     className="text-gray-800 bg-white border bg-gray-100 border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
                     placeholder="Enter Addhr No."
                     value={editInfo.uidaiNo}
@@ -199,8 +225,3 @@ function UpdateModal({ closeModal, sendId}) {
 }
 
 export default UpdateModal;
-
-
-
-
-//still now all right and tomorrow task is when i click edit button then i want to fetch all previous date in a popup input field

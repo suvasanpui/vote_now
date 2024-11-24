@@ -4,7 +4,7 @@ require('dotenv').config()
 
 /* Using Node.js `require()`*/
 const mongoose = require('mongoose');
-//const mongoDBURL=process.env.local_mongo_url; // hotel is a database name
+//const mongoDBURL=process.env.local_mongo_url; // voting_system is a database name
 const mongoDBURL=process.env.remote_mongo_url
 
 mongoose.connect(mongoDBURL);

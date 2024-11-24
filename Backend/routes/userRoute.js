@@ -196,8 +196,8 @@ const mailer=(email,otp)=>{
     port: 587,
     secure: false, // true for port 465, false for other ports
     auth: {
-      user: 'millie.yost26@ethereal.email',
-      pass: 'FvSKq7NK396hf1JmPw',
+      user: 'jeffry.glover@ethereal.email',
+      pass: 'F5VYzwyWpwZTyvmy5H',
     },
   });
   var mailOption={

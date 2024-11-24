@@ -29,7 +29,7 @@ function Home() {
       handleError(err);
     }
   };
-  
+
   useEffect(() => {
     fetchRecord();
   }, []);
@@ -37,13 +37,22 @@ function Home() {
   return (
     <>
       <Nav />
-      <div className="m-20">
-      {
-        
-        !allresult.isVoted ?<ElectorsList/>:"you are already given a vote"
-      
-      }
-        
+      <div
+        className="min-h-screen flex items-center justify-center bg-fixed bg-cover bg-center"
+        style={{
+          backgroundImage: "url('background3.jpg')",
+          backgroundSize: "cover", // Ensures the image covers the container
+          backgroundPosition: "center", // Centers the image
+          backgroundRepeat: "no-repeat", // Prevents repeating the image
+        }}
+      >
+        <div className="m-20 font-bold text-red-600">
+          {!allresult.isVoted ? (
+            <ElectorsList />
+          ) : (
+            "you are already given a vote"
+          )}
+        </div>
       </div>
     </>
   );
