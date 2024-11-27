@@ -85,7 +85,7 @@ function AddModal({closeModal}) {
             <div className="max-w-md w-full modal-container mt-0">
               <div className="p-8 rounded-2xl bg-white shadow">
                 <div className="text-right text-gray-500">
-                <p>This page is under maintanance</p>
+                <p className='bg-red-800'>This page is under maintanance</p>
                   <button className="font-bold" onClick={closeModal}>
                     X
                   </button>
