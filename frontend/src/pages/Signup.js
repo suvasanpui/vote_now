@@ -54,11 +54,9 @@ function Signup() {
         setTimeout(() => {
           navigate("/login");
         }, 1000);
-      } else if (error) {
-        const details = error?.details[0].message;
-        handleError(details);
-      } else {
-        handleError("some error found");
+      }
+      if (error) {
+        handleError(error);
       }
     } catch (err) {
       handleError(err);

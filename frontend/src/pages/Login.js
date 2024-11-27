@@ -46,11 +46,10 @@ function Login() {
           }, 1000);
           localStorage.setItem("loggedToken", token);
           localStorage.setItem("loggedinName", response.name);
-        } else if (error) {
-          const details = error?.details[0].message;
-          handleError("user can not found");
-        } else {
-          return handleError("User Not exist");
+        } 
+        else{
+      
+          handleError(message);
         }
       }
 

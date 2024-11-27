@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 function ElectorsList() {
-  const [showList, setShowList] = useState("");
+  const [showList, setShowList] = useState(""); ///for show electors
+  
 
-  //fetch all the electors record in a home page 
+  //fetch all the electors record in a home page
   const fetchRecord = async () => {
     try {
-
       const url = "https://vote-now-api3902.vercel.app/electors";
       //const url = "http://localhost:8000/electors";
       //this is function to gat a token from localstorage
@@ -30,11 +30,11 @@ function ElectorsList() {
   };
 
   //when i click a vote button then its get elector id and the update record in a electos collection
-  const handleVote=async (e)=>{
-    const {value}=e.target;
-    try{
+  const handleVote = async (e) => {
+    const { value } = e.target;
+    try {
       const url=`https://vote-now-api3902.vercel.app/electors/votes/${value}`;
-      //const url=`http://localhost:8000/electors/votes/${value}`;
+      //const url = `http://localhost:8000/electors/votes/${value}`;
       const headers = {
         Authorization: `Bearer ${localStorage.getItem("loggedToken")}`,
         "Content-Type": "application/json",
@@ -43,40 +43,39 @@ function ElectorsList() {
         method: "POST",
         headers: headers,
       });
-      if(responseRes.ok){
+      if (responseRes.ok) {
         const result = await responseRes.json();
-        console.log(result,"Vote Successfully");
+        console.log(result, "Vote Successfully");
         handleSuccess("voted successfully");
         fetchRecord();
-      }else{
+      } else {
         handleError("Internal server Error");
       }
-      
-      
-    }catch(err){
+    } catch (err) {
       handleError("Internal server error");
     }
-  }
+  };
 
-  
   useEffect(() => {
     fetchRecord();
+    
   }, []);
 
   return (
     <div>
-      <div className="px-3 py-3 font-serif font-medium text-gray-700 col-span-6 bg-slate-600">
-        <div className="relative overflow-x-auto">
-          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <div className="px-3 py-3 bg-slate-600">
+        {/* Add horizontal scrolling wrapper */}
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse min-w-max text-sm text-left text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
               <tr>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-4 py-2">
                   Name
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-4 py-2">
                   Party
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-4 py-2">
                   Participate
                 </th>
               </tr>
@@ -84,15 +83,13 @@ function ElectorsList() {
             <tbody>
               {Array.isArray(showList) &&
                 showList.map((data, index) => (
-                  <tr className="bg-white dark:bg-gray-800" key={index}>
-                    <th
-                      scope="row"
-                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                    >
-                      {data.name}
-                    </th>
-                    <td className="px-6 py-4">{data.party}</td>
-                    <td className="m-6 p-4">
+                  <tr
+                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-70"
+                    key={index}
+                  >
+                    <td className="px-4 py-2">{data.name}</td>
+                    <td className="px-4 py-2">{data.party}</td>
+                    <td className="px-4 py-2">
                       <button
                         name={data.party}
                         type="button"
@@ -108,7 +105,7 @@ function ElectorsList() {
                 ))}
             </tbody>
           </table>
-          <ToastContainer/>
+          <ToastContainer />
         </div>
       </div>
     </div>

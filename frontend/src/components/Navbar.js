@@ -32,7 +32,7 @@ function Navbar() {
                 className="flex items-center justify-center w-14 h-14 text-3xl font-semibold text-white bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 rounded-full shadow-lg"
                 title={loggedinInfo}
               >
-                {(loggedinInfo || " ").substring(0,2)} {/*there are budefault loggedinInfo is null when i set a name in this variable then it set a name */}
+                {(loggedinInfo || " ").substring(0,2).toUpperCase()} {/*there are budefault loggedinInfo is null when i set a name in this variable then it set a name */}
 
                 {/*to show loggedin name (only frist two character) in right side in home page */}
               </span>

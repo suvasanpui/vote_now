@@ -7,6 +7,7 @@ import ElectorsList from "../components/ElectorsList";
 
 function Home() {
   const [allresult, setAllresult] = useState("");
+  const [isvote,setIsVote]=useState(null);
 
   //fetch all the member record
   const fetchRecord = async () => {
@@ -32,6 +33,9 @@ function Home() {
 
   useEffect(() => {
     fetchRecord();
+    const id=setInterval(fetchRecord,3000); //fetch record in every 3 seconsd
+    setIsVote(id);
+    return ()=>clearInterval(id)
   }, []);
 
   return (

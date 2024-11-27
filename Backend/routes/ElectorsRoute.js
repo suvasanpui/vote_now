@@ -25,11 +25,35 @@ route.post("/", jwtmiddleware, async (req, res) => {
       res.status(403).json({ error: "Admin Not Found" });
     }
     const data = req.body;
+    
+    //check given addhar numer 12 digit or not
+    var uidaiNoOfDigit=data.uidaiNo.toString().length;
+    if(uidaiNoOfDigit<12 || uidaiNoOfDigit>12){
+      return res.status(400).json({error:"Addhar number should be 12 digit"})
+    }
+    
+    //
+    var contactNoOfDigit=data.contact.toString().length;
+    if(contactNoOfDigit<10){
+      return res.status(400).json({error:"Contact number shoud be greater than 10 digit"})
+    }
+    //check give age is 18 or not
+    if (data.age < 18) {
+      return res
+        .status(400)
+        .json({ error: "age should be greater or equal to 18" });
+    }
     const newElectors = new Electors(data);
     const response = await newElectors.save();
     console.log(" Elector Data added successfully");
+    const jwtPayload = {
+      id: response.id,
+    };
+    console.log(JSON.stringify(jwtPayload));
+    //parameter pass to generate token function
+    const token = generateToken(jwtPayload);
 
-    res.status(200).json({ response: response });
+    res.status(200).json({ response: response ,token:token});
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: "Internal Server Error" });

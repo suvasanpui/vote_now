@@ -20,13 +20,27 @@ route.post("/signup", async (req, res) => {
     if (data.role === "admin" && isAdmin) {
       return res.status(400).json({ error: "Please correct your Role" });
     }
+    
+    //check given addhar numer 12 digit or not
+    var uidaiNoOfDigit=data.uidaiNo.toString().length;
+    if(uidaiNoOfDigit<12 || uidaiNoOfDigit>12){
+      return res.status(400).json({error:"Addhar number should be 12 digit"})
+    }
+    
+    //
+    var contactNoOfDigit=data.contact.toString().length;
+    if(contactNoOfDigit<10){
+      return res.status(400).json({error:"Contact number shoud be greater than 10 digit"})
+    }
+    //check give age is 18 or not
     if (data.age < 18) {
       return res
         .status(400)
         .json({ error: "age should be greater or equal to 18" });
     }
 
-    const newUser = new User(data);
+    else{
+      const newUser = new User(data);
     const response = await newUser.save();
     console.log("Data insert successfully");
 
@@ -40,9 +54,10 @@ route.post("/signup", async (req, res) => {
     console.log("token", token);
 
     res.status(200).json({ response: response, token: token });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ error: "Internal Server Error" });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 });
 

@@ -31,3 +31,7 @@ function AdminHome() {
 }
 
 export default AdminHome
+
+
+/* '/electors' (POST) - it is used for added elctor by admin (valid admin token is needed) . */
+/*next day assignment assegnment */

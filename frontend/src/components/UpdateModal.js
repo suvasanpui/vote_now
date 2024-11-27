@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 //responsible for show a modala and update the electors details
-function UpdateModal({ closeModal, sendId }) {
+function UpdateModal({ closeModal, sendId , source}) {
   //submit update details
   const [editInfo, seteditInfo] = useState({
     name: "",
@@ -13,7 +13,7 @@ function UpdateModal({ closeModal, sendId }) {
     contact: "",
     address: "",
     uidaiNo: "",
-    password: "",
+    party: "",
   });
 
   //automatic fetch the electors data when i click edit button and place them into 'editInfo' state
@@ -40,7 +40,7 @@ function UpdateModal({ closeModal, sendId }) {
           contact: profileData.contact || "",
           address: profileData.address || "",
           uidaiNo: profileData.uidaiNo || "",
-          password: profileData.password || "",
+          party: profileData.party || " ",
         });
       } catch (error) {
         console.error("Error fetching profile data:", error);
@@ -79,7 +79,9 @@ function UpdateModal({ closeModal, sendId }) {
         handleError(error);
       } else {
         handleSuccess("Update successfully");
-        closeModal(true);
+        setTimeout(() => {
+          navigate(closeModal(true))
+        }, 1000);
       }
     } catch (err) {
       handleError(err);
@@ -107,9 +109,12 @@ function UpdateModal({ closeModal, sendId }) {
                 X
               </button>
             </div>
-            <h2 className="text-gray-700 text-center text-3xl font-bold pb-6">
+            {source==="UpdateModal" ? (<h2 className="text-gray-700 text-center text-3xl font-bold pb-6">
               Update Candidate
-            </h2>
+            </h2>) : <h2 className="text-gray-700 text-center text-3xl font-bold pb-6">
+              View Candidate
+            </h2>}
+            
             <form onSubmit={handleUpdate}>
               <div className="grid sm:grid-cols-2 gap-8">
                 <div>
@@ -191,30 +196,29 @@ function UpdateModal({ closeModal, sendId }) {
                     value={editInfo.uidaiNo}
                   />
                 </div>
-
                 <div>
                   <label className="text-gray-800 text-sm mb-2 block">
-                    Password
+                    Party
                   </label>
                   <input
                     onChange={handleChange}
-                    name="password"
-                    type="password"
+                    name="party"
+                    type="text"
                     className="text-gray-800 bg-white border bg-gray-100 border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
-                    placeholder="Enter password"
-                    value={editInfo.password}
+                    placeholder="Enter party"
+                    value={editInfo.party}
                   />
                 </div>
               </div>
 
-              <div className="!mt-12">
+              {source==="UpdateModal" && (<div className="!mt-12">
                 <button
                   type="submit"
                   className="w-full py-3 px-4 text-sm tracking-wider font-semibold rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
                 >
                   Update
                 </button>
-              </div>
+              </div>)}
             </form>
             <ToastContainer />
           </div>

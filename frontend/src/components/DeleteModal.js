@@ -2,9 +2,11 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { handleError, handleSuccess } from "../utils";
 import { ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 //responsible for show a modala and delete the electors details
 function DeleteModal({ closeModal, sendId }) {
+  const navigate=useNavigate()
   //submit detlete details
   const [deleteInfo, setDeleteInfo] = useState({
     name: "",
@@ -66,7 +68,9 @@ function DeleteModal({ closeModal, sendId }) {
         handleError(error);
       } else {
         handleSuccess("delete successfully");
-        closeModal(true);
+        setTimeout(() => {
+         navigate(closeModal(true))
+        }, 1000);
       }
     } catch (err) {
       handleError(err);
