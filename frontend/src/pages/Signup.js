@@ -192,7 +192,7 @@ function Signup() {
                         value={signupinfo.password}
                       />
                     </div>
-                    <div>
+                    {/*<div>
                       <label className="text-gray-800 text-sm mb-2 block">
                         Confirm Password
                       </label>
@@ -202,7 +202,7 @@ function Signup() {
                         className="text-gray-800 bg-white border bg-gray-100 border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
                         placeholder="Enter Confirm password"
                       />
-                    </div>
+                    </div>*/}
                   </div>
 
                   <div className="!mt-12">

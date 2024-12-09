@@ -4,6 +4,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard"
 import { useState } from "react";
 import RefreshHandler from "./RefreshHandler";
 import { ToastContainer} from "react-toastify";
@@ -25,14 +26,14 @@ function App() {
       <ToastContainer/>
       <RefreshHandler setIsauthenticate={setIsauthenticate} />
       <Routes>
-        <Route path="/" element={<Navigate to="/Login" />} />
+        <Route path="/" element={<Navigate to="/dashboard" />} />
+        <Route path="/dashboard" element={<Dashboard/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/profile/forgot-password" element={<ForgotPassword/>}/>
         <Route path="/profile/change-password" element={<ChangePassword/>}/>
         <Route path="/home" element={<PrivateRoute element={<Home />} />} />
-
-        <Route path="/admin-profile" element={<AdminHome/>} />
+        <Route path="/admin-profile" element={<PrivateRoute element={<AdminHome />} />} />
       </Routes>
     </div>
   );
